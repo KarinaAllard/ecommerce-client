@@ -1,0 +1,19 @@
+header {
+    width: 100%;
+
+    .nav-div {
+
+        display: flex;
+        height: 5rem;
+        align-items: center;
+        justify-content: center;
+
+        .nav-bar {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            gap: 2rem;
+        }
+    }
+}
