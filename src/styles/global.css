@@ -5,11 +5,13 @@
     --light-orange: #F2A544;
     --medium-grey: #BDB4B7;
     --light-grey: #FEFEFE;
+    --standard-text: 'Libre Baskerville', Arial, sans-serif;
 }
 
 body {
     background-color: var(--dark-brown);
     color: var(--light-grey);
+    font-family: var(--standard-text);
 }
 
 header {
