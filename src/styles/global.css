@@ -1,0 +1,42 @@
+:root {
+    --dark-blue: #0F2C33;
+    --medium-blue: #21616A;
+    --light-blue: #2E9CA0;
+    --orange: #EFA00F;
+    --brown: #533946;
+    --beige: #E6D1B4;
+    --standard-text: 'Libre Baskerville', Arial, sans-serif;
+}
+
+body {
+    background-color: var(--dark-blue);
+    color: var(--beige);
+    font-family: var(--standard-text);
+}
+
+header {
+    background-color: var(--orange);
+}
+
+a {
+    color: var(--brown);
+    font-weight: 600;
+}
+
+a:hover {
+    color: var(--medium-blue);
+}
+
+.active {
+    text-decoration: underline;
+}
+
+h2,
+h3,
+p {
+    color: var(--dark-blue);
+}
+
+h2 {
+    margin: 0;
+}
