@@ -1,29 +1,30 @@
 :root {
-    --dark-brown: #21130A;
-    --medium-brown: #40312A;
-    --dark-orange: #AF6825;
-    --light-orange: #F2A544;
-    --medium-grey: #BDB4B7;
-    --light-grey: #FEFEFE;
+    --dark-blue: #0F2C33;
+    --medium-blue: #21616A;
+    --light-blue: #2E9CA0;
+    --orange: #EFA00F;
+    --brown: #533946;
+    --beige: #E6D1B4;
     --standard-text: 'Libre Baskerville', Arial, sans-serif;
 }
 
 body {
-    background-color: var(--dark-brown);
-    color: var(--light-grey);
+    background-color: var(--dark-blue);
+    color: var(--beige);
     font-family: var(--standard-text);
 }
 
 header {
-    background-color: var(--dark-orange);
+    background-color: var(--orange);
 }
 
 a {
-    color: var(--light-grey);
+    color: var(--brown);
+    font-weight: 600;
 }
 
 a:hover {
-    color: var(--dark-brown);
+    color: var(--medium-blue);
 }
 
 .active {
@@ -33,5 +34,9 @@ a:hover {
 h2,
 h3,
 p {
-    color: var(--medium-brown);
+    color: var(--dark-blue);
+}
+
+h2 {
+    margin: 0;
 }
