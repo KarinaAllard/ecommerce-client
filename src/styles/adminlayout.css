@@ -1,0 +1,24 @@
+.customer-wrapper { 
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    padding: 1rem;
+    gap: 1rem;
+
+    .customer-div {
+        background-color: var(--beige);
+        padding: 1rem;
+    
+        p {
+            margin: 0 0 1rem 0;
+        }
+
+        .button-div {
+
+            button {
+                margin: 0 0.5rem;
+            }
+        }
+    }
+
+}

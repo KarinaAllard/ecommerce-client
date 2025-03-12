@@ -1,28 +1,61 @@
-import { useEffect } from "react";
-import { useCustomers } from "../hooks/useCustomers"
-import { fetchCustomers } from "../../services/customerService";
+import { useState } from "react";
+import { useCustomers } from "../hooks/useCustomers";
+import { Link } from "react-router";
+import { Button } from "../../components/Button";
+import { MdExpandLess, MdExpandMore } from "../../icons";
 
 export const ManageCustomers = () => {
-    const { customers, isLoading, error } = useCustomers();
+	const { customers, isLoading, error } = useCustomers();
+	const [showCustomerByID, setShowCustomerByID] = useState<number | null>(null);
 
-    useEffect(() => {
-        fetchCustomers();
-    }, [fetchCustomers]);
+	const showCustomerDetails = (customerId: number) => {
+		setShowCustomerByID((prevId) =>
+			prevId === customerId ? null : customerId
+		);
+	};
 
-    return (
-        <div>
-            <h1>Manage Customers</h1>
-            {isLoading && <p>Loading customers...</p>}
-            {error && <p>Error: {error}</p>}
+	return (
+		<div>
+			<h1>Manage Customers</h1>
+			{isLoading && <p>Loading customers...</p>}
+			{error && <p>Error: {error}</p>}
 
-            <ul>
-                {customers.length === 0 && !isLoading && <p>No customers found.</p>}
-                {customers.map((customer) => (
-                    <li key={customer.id}>
-                        {customer.firstname} {customer.lastname} - {customer.email}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    )
-}
+			<div className="customer-wrapper">
+				{customers.length === 0 && !isLoading && <p>No customers found.</p>}
+				{customers.map((customer) => (
+					<div className="customer-div" key={customer.id}>
+						<h3 onClick={() => showCustomerDetails(customer.id!)}>
+							{customer.firstname} {customer.lastname}
+                            {showCustomerByID === customer.id ? (
+                                <MdExpandLess />
+                                ) : ( 
+                                <MdExpandMore /> 
+                            )}
+						</h3>
+						{showCustomerByID === customer.id && (
+							<>
+								<div className="contact-info">
+									<h4>Email: </h4>
+                                    <p>{customer.email}</p>
+                                    <h4>Phone: </h4>
+									<p>{customer.phone}</p>
+								</div>
+								<div className="address-info">
+                                    <h4>Address: </h4>
+									<p>
+										{customer.street_address}, {customer.postal_code},{" "}
+										{customer.city}, {customer.country}
+									</p>
+								</div>
+                                <div className="button-div">
+                                    <Button className="edit-btn"><Link to={`/admin/update-customer/${customer.id}`}>Update</Link></Button>
+                                    <Button className="delete-btn">Delete</Button>
+                                </div>
+							</>
+						)}
+					</div>
+				))}
+			</div>
+		</div>
+	);
+};
