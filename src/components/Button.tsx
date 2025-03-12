@@ -3,7 +3,7 @@ import "/src/styles/button.css"
 interface IButtonProps {
     children: React.ReactNode;
     type?: "button" | "submit" | "reset";
-    className?: "edit-btn" | "delete-btn";
+    className?: string;
     onClick?: () => void;
     disabled?: boolean;
 }
