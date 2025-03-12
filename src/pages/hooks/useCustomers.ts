@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ICustomer } from "../../types/ICustomer";
-import { fetchCustomers } from "../../services/customerService";
+import { createCustomer, fetchCustomers } from "../../services/customerService";
 
 export const useCustomers = () => {
 	const [customers, setCustomers] = useState<ICustomer[]>([]);
@@ -24,9 +24,19 @@ export const useCustomers = () => {
 		}
 	};
 
+    const addCustomer = async (newCustomer: ICustomer) => {
+        try {
+            const createdCustomer = await createCustomer(newCustomer);
+            setCustomers((existingCustomers) => [...existingCustomers, newCustomer]);
+        } catch (error) {
+            setError("Failed to add customer.");
+        }
+    }
+
     return {
         customers,
         isLoading,
         error,
+        addCustomer,
     }
 };

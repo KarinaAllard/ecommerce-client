@@ -21,6 +21,7 @@ export const ManageCustomers = () => {
 			{error && <p>Error: {error}</p>}
 
 			<div className="customer-wrapper">
+                <Button type="button" className="edit-btn"><Link to={"/admin/create-customer"}>Create Customer</Link></Button>
 				{customers.length === 0 && !isLoading && <p>No customers found.</p>}
 				{customers.map((customer) => (
 					<div className="customer-div" key={customer.id}>
