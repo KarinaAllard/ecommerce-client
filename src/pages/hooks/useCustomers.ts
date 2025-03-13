@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { ICustomer } from "../../types/ICustomer";
-import { createCustomer, fetchCustomers } from "../../services/customerService";
+import { CustomerUpdate, ICustomer } from "../../types/ICustomer";
+import { createCustomer, fetchCustomers, updateCustomer } from "../../services/customerService";
 
 export const useCustomers = () => {
 	const [customers, setCustomers] = useState<ICustomer[]>([]);
@@ -33,10 +33,24 @@ export const useCustomers = () => {
         }
     }
 
+    const updateCustomerHandler = async (id: number, updatedData: CustomerUpdate) => {
+        try {
+                const updatedCustomer = await updateCustomer(id, updatedData);
+                setCustomers((existingCustomers) => 
+                    existingCustomers.map((customer) => 
+                        customer.id === id ? {...customer, ...updateCustomer} : customer 
+                )
+            )
+        } catch (error){
+            setError("Failed to update customer.")
+        }
+    }
+
     return {
         customers,
         isLoading,
         error,
         addCustomer,
+        updateCustomerHandler,
     }
 };

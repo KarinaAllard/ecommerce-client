@@ -1,11 +1,15 @@
 import axios from "axios";
-import { ICustomer } from "../types/ICustomer";
+import { CustomerUpdate, ICustomer } from "../types/ICustomer";
 import { API_URL, handleRequest } from "./baseService";
 
 export const fetchCustomers = async (): Promise<ICustomer[]> => {
-    return handleRequest(axios.get(`${API_URL}/customers`));
+    return await handleRequest(axios.get(`${API_URL}/customers`));
 }
 
 export const createCustomer = async (newCustomer: ICustomer): Promise<ICustomer> => {
-    return handleRequest(axios.post(`${API_URL}/customers`, newCustomer));
+    return await handleRequest(axios.post(`${API_URL}/customers`, newCustomer));
 };
+
+export const updateCustomer = async (id: number, payload: CustomerUpdate): Promise<ICustomer> => {
+    return await handleRequest<ICustomer>(axios.patch(`${API_URL}/customers/${id}`, payload))
+}

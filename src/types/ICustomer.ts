@@ -11,3 +11,5 @@ export interface ICustomer {
     country:        string;
     created_at?:    string;
 }
+
+export type CustomerUpdate = Pick<ICustomer, 'firstname' | 'lastname' | 'email' | 'password' | 'phone' | 'street_address' | 'postal_code' | 'city' | 'country' >;
