@@ -8,3 +8,6 @@ export interface IProduct {
     image:          string;
     created_at?:    string;
 }
+
+export type ProductCreate = Pick<IProduct, 'name' | 'description' | 'price' | 'stock' | 'category' | 'image' >
+export type ProductUpdate = Pick<IProduct, 'name' | 'description' | 'price' | 'stock' | 'category' | 'image' >

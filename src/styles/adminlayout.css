@@ -1,4 +1,5 @@
-.customer-wrapper { 
+.customer-wrapper,
+.product-wrapper { 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +7,8 @@
     padding: 1rem;
     gap: 1rem;
 
-    .customer-div {
+    .customer-div,
+    .product-div {
         background-color: var(--beige);
         padding: 1rem;
         border-radius: 10px;
@@ -34,7 +36,7 @@
         padding: 1rem;
 
         input {
-            width: 40%;
+            width: 85%;
             font-size: 1.3rem;
             background-color: var(--beige);
             border: none;
