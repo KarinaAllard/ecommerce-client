@@ -13,3 +13,7 @@ export const createCustomer = async (newCustomer: ICustomer): Promise<ICustomer>
 export const updateCustomer = async (id: number, payload: CustomerUpdate): Promise<ICustomer> => {
     return await handleRequest<ICustomer>(axios.patch(`${API_URL}/customers/${id}`, payload))
 }
+
+export const deleteCustomer = async (id: number): Promise<void> => {
+    return await handleRequest<void>(axios.delete(`${API_URL}/customers/${id}`))
+}

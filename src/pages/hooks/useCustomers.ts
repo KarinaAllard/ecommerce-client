@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CustomerUpdate, ICustomer } from "../../types/ICustomer";
-import { createCustomer, fetchCustomers, updateCustomer } from "../../services/customerService";
+import { createCustomer, deleteCustomer, fetchCustomers, updateCustomer } from "../../services/customerService";
 
 export const useCustomers = () => {
 	const [customers, setCustomers] = useState<ICustomer[]>([]);
@@ -46,11 +46,34 @@ export const useCustomers = () => {
         }
     }
 
+    const deleteCustomerHandler = async (id: number) => {
+        const existingCustomers = customers;
+
+        try {
+            const updatedCustomers = customers.filter(customer => customer.id !== id);
+            localStorage.setItem('customers', JSON.stringify(updatedCustomers))
+            setCustomers(updatedCustomers);
+            await deleteCustomer(id);
+        } catch (error) {
+            setError("Failed to delete customer");
+            rollBackCustomerChanges(existingCustomers);
+            throw error;
+        } finally {
+
+        }
+    }
+
+    const rollBackCustomerChanges = (existingCustomers: ICustomer[]) => {
+        localStorage.setItem('customers', JSON.stringify(existingCustomers));
+        setCustomers(existingCustomers);
+    }
+
     return {
         customers,
         isLoading,
         error,
         addCustomer,
         updateCustomerHandler,
+        deleteCustomerHandler
     }
 };

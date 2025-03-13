@@ -5,7 +5,7 @@ import { Button } from "../../components/Button";
 import { MdExpandLess, MdExpandMore } from "../../icons";
 
 export const ManageCustomers = () => {
-	const { customers, isLoading, error } = useCustomers();
+	const { customers, isLoading, error, deleteCustomerHandler } = useCustomers();
 	const [showCustomerByID, setShowCustomerByID] = useState<number | null>(null);
 
 	const showCustomerDetails = (customerId: number) => {
@@ -50,7 +50,7 @@ export const ManageCustomers = () => {
 								</div>
                                 <div className="button-div">
                                     <Button className="edit-btn"><Link to={`/admin/update-customer/${customer.id}`}>Update</Link></Button>
-                                    <Button className="delete-btn">Delete</Button>
+                                    <Button className="delete-btn" onClick={() => customer.id && deleteCustomerHandler(customer.id)}>Delete</Button>
                                 </div>
 							</>
 						)}
