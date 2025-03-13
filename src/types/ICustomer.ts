@@ -12,4 +12,5 @@ export interface ICustomer {
     created_at?:    string;
 }
 
+export type CustomerCreate = Pick<ICustomer, 'firstname' | 'lastname' | 'email' | 'password' | 'phone' | 'street_address' | 'postal_code' | 'city' | 'country' >;
 export type CustomerUpdate = Pick<ICustomer, 'firstname' | 'lastname' | 'email' | 'password' | 'phone' | 'street_address' | 'postal_code' | 'city' | 'country' >;

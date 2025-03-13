@@ -4,7 +4,7 @@ import { ICustomer } from "../../types/ICustomer";
 import { Button } from "../../components/Button";
 
 export const CreateCustomer = () => {
-	const { addCustomer } = useCustomers();
+	const { createCustomerHandler } = useCustomers();
 	const [formData, setFormData] = useState<ICustomer>({
 		firstname: "",
 		lastname: "",
@@ -23,7 +23,7 @@ export const CreateCustomer = () => {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		await addCustomer(formData);
+		await createCustomerHandler(formData);
 		setFormData({
 			firstname: "",
 			lastname: "",
