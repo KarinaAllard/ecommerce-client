@@ -1,8 +1,23 @@
 .edit-btn,
 .submit-btn {
-    background-color: rgb(52, 187, 79);
+    background-color: #3DBB75;
+    color: var(--dark-blue);
+
+    a {
+        color: var(--dark-blue);
+    }
 }
 
 .delete-btn {
-    background-color: rgb(187, 52, 70);
+    background-color: #D14141;
+}
+
+button {
+    width: 18dvw;
+    min-width: 130px;
+}
+
+button:hover {
+    color: var(--dark-blue);
+    font-weight: 600;
 }
