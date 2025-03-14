@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useProducts } from "../hooks/useProducts";
 import { IProduct } from "../../types/IProduct";
 import { Button } from "../../components/Button";
+import { Link } from "react-router";
 
 enum ProductCategory {
 	Hat = "Hat",
@@ -111,6 +112,7 @@ export const CreateProduct = () => {
 						<Button type="submit" className="submit-btn">
 							Create Product
 						</Button>
+                        <Link to={"/admin/manage-customers"}>Go back</Link>
 					</div>
 				</div>
 			</form>

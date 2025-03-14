@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCustomers } from "../hooks/useCustomers";
 import { ICustomer } from "../../types/ICustomer";
 import { Button } from "../../components/Button";
+import { Link } from "react-router";
 
 export const CreateCustomer = () => {
 	const { createCustomerHandler } = useCustomers();
@@ -72,7 +73,7 @@ export const CreateCustomer = () => {
 						value={formData.password}
 						onChange={handleChange}
 						placeholder="Password"
-                        className="input-pw"
+						className="input-pw"
 						required
 					/>
 					<input
@@ -111,10 +112,12 @@ export const CreateCustomer = () => {
 						placeholder="Country"
 					/>
 				</div>
-
-				<Button type="submit" className="submit-btn">
-					Create Customer
-				</Button>
+				<div className="button-div">
+					<Button type="submit" className="submit-btn">
+						Create Customer
+					</Button>
+					<Link to={"/admin/manage-customers"}>Go back</Link>
+				</div>
 			</form>
 		</div>
 	);
