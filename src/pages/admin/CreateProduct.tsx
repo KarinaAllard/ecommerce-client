@@ -20,8 +20,8 @@ export const CreateProduct = () => {
 	const [formData, setFormData] = useState<IProduct>({
 		name: "",
 		description: "",
-		price: 0,
-		stock: 0,
+		price: null as number | null,
+		stock: null as number | null,
 		category: "",
 		image: "",
 	});
@@ -50,6 +50,7 @@ export const CreateProduct = () => {
 			<form onSubmit={handleSubmit}>
 				<h2>Create New Product</h2>
 				<div className="form-div">
+                    <label htmlFor="name">Name:</label>
 					<input
 						type="text"
 						name="name"
@@ -58,6 +59,7 @@ export const CreateProduct = () => {
 						placeholder="Name"
 						required
 					/>
+                    <label htmlFor="description">Description:</label>
 					<input
 						type="text"
 						name="description"
@@ -66,23 +68,25 @@ export const CreateProduct = () => {
 						placeholder="Description"
 						required
 					/>
+                    <label htmlFor="price">Price:</label>
 					<input
 						type="number"
 						name="price"
-						value={formData.price}
+						value={formData.price ?? ""}
 						onChange={handleChange}
 						placeholder="Price"
 						required
 					/>
+                    <label htmlFor="stock">Stock:</label>
 					<input
 						type="number"
 						name="stock"
-						value={formData.stock}
+						value={formData.stock ?? ""}
 						onChange={handleChange}
 						placeholder="Stock"
 						required
 					/>
-					<label htmlFor="category">Category</label>
+					<label htmlFor="category">Category:</label>
 					<select
 						name="category"
 						id="category"
@@ -99,6 +103,7 @@ export const CreateProduct = () => {
 							</option>
 						))}
 					</select>
+                    <label htmlFor="image">Image URL:</label>
 					<input
 						type="text"
 						name="image"
@@ -112,7 +117,7 @@ export const CreateProduct = () => {
 						<Button type="submit" className="submit-btn">
 							Create Product
 						</Button>
-                        <Link to={"/admin/manage-customers"}>Go back</Link>
+                        <Link to={"/admin/manage-products"}>Go back</Link>
 					</div>
 				</div>
 			</form>
