@@ -1,19 +1,45 @@
 import { Link, useNavigate, useParams } from "react-router";
 import { useOrder } from "../hooks/useOrder";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdExpandLess, MdExpandMore } from "../../icons";
+import { deleteOrderItem, updateOrderItem } from "../../services/orderItemService";
+import { Button } from "../../components/Button";
 
 export const OrderDetails = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 
 	const { order, isLoading, error } = useOrder(Number(id));
-
+    
 	const [showOrderByID, setShowOrderByID] = useState<number | null>(null);
-	const [showOrderItemsByID, setShowOrderItemsByID] = useState<number | null>(
-		null
-	);
+	const [showOrderItemsByID, setShowOrderItemsByID] = useState<number | null>(null);
 	const [showCustomerByID, setShowCustomerByID] = useState<number | null>(null);
+    const [editItemID, setEditItemID] = useState<number | null>(null);
+    const [editedItemQuantity, setEditedItemQuantity] = useState<{ [key: number]: number }>({});
+
+    const handleQuantityChange = (itemId: number, newItemQuantity: number) => {
+        setEditedItemQuantity((oldItemQuantity) => ({
+            ...oldItemQuantity,
+            [itemId]: newItemQuantity,
+        }))
+    }
+
+    const handleSave = async (itemId: number) => {
+        const newItemQuantity = editedItemQuantity[itemId];
+
+        if (newItemQuantity !== undefined) {
+            const previousQuantity = order?.order_items.find(item => item.id === itemId)?.quantity;
+            
+            await updateOrderItem(itemId, { quantity: newItemQuantity});
+
+            setEditItemID(null);
+        }
+    }
+
+    const handleDelete = async (itemId: number) => {
+        await deleteOrderItem(itemId);
+    }
+
 
 	const showOrderDetails = (orderId: number) => {
 		setShowOrderByID((prevId) => (prevId === orderId ? null : orderId));
@@ -62,11 +88,27 @@ export const OrderDetails = () => {
 					{showOrderItemsByID === order?.id && (
 						<div className="order-item-info">
 							{order.order_items.map((item) => (
-								<div key={item.id}>
+								<div key={item.id} className="order-item">
 									<h4>{item.product_name}</h4>
-									<p>
-										{item.quantity} x {item.unit_price}kr
-									</p>
+                                    {editItemID === item.id ? (
+                                        <>
+                                            <input 
+                                                type="number" 
+                                                value={editedItemQuantity[item.id ?? -1] ?? item.quantity}
+                                                onChange={(e) => handleQuantityChange(item.id ?? -1, Number(e.target.value))}
+                                            />
+                                            <Button onClick={() => handleSave(item.id ?? -1)}>Save</Button>
+                                            <Button onClick={() => handleDelete(item.id ?? -1)}>Delete</Button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p>
+                                                {item.quantity} x {item.unit_price}kr
+                                            </p>
+                                            <Button onClick={() => setEditItemID(item.id ?? -1)}>Edit</Button>
+                                            
+                                        </>
+                                    )}
 								</div>
 							))}
 						</div>
