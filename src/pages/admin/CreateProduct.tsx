@@ -20,8 +20,8 @@ export const CreateProduct = () => {
 	const [formData, setFormData] = useState<IProduct>({
 		name: "",
 		description: "",
-		price: null as number | null,
-		stock: null as number | null,
+		price: 0,
+		stock: 0,
 		category: "",
 		image: "",
 	});
@@ -72,7 +72,7 @@ export const CreateProduct = () => {
 					<input
 						type="number"
 						name="price"
-						value={formData.price ?? ""}
+						value={formData.price}
 						onChange={handleChange}
 						placeholder="Price"
 						required
@@ -81,7 +81,7 @@ export const CreateProduct = () => {
 					<input
 						type="number"
 						name="stock"
-						value={formData.stock ?? ""}
+						value={formData.stock}
 						onChange={handleChange}
 						placeholder="Stock"
 						required
