@@ -7,3 +7,5 @@ export interface IOrderItem {
     unit_price: number;
     created_at?: string;
 }
+
+export type OrderItemUpdate = Pick<IOrderItem, "id" | "quantity">;
