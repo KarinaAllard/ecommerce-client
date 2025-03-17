@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router";
 import { useOrder } from "../hooks/useOrder";
 import { useEffect, useState } from "react";
-import { MdExpandLess, MdExpandMore } from "../../icons";
+import { MdEdit, MdExpandLess, MdExpandMore } from "../../icons";
 import { deleteOrderItem, updateOrderItem } from "../../services/orderItemService";
 import { Button } from "../../components/Button";
 
@@ -9,7 +9,7 @@ export const OrderDetails = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 
-	const { order, isLoading, error } = useOrder(Number(id));
+	const { order, isLoading, error, setOrder, fetchOrder } = useOrder(Number(id));
     
 	const [showOrderByID, setShowOrderByID] = useState<number | null>(null);
 	const [showOrderItemsByID, setShowOrderItemsByID] = useState<number | null>(null);
@@ -28,16 +28,19 @@ export const OrderDetails = () => {
         const newItemQuantity = editedItemQuantity[itemId];
 
         if (newItemQuantity !== undefined) {
-            const previousQuantity = order?.order_items.find(item => item.id === itemId)?.quantity;
-            
             await updateOrderItem(itemId, { quantity: newItemQuantity});
-
+            const updatedOrder = await fetchOrder(Number(id))
+            
+            setOrder(updatedOrder);
             setEditItemID(null);
         }
     }
 
     const handleDelete = async (itemId: number) => {
         await deleteOrderItem(itemId);
+
+        const updatedOrder = await fetchOrder(Number(id));
+        setOrder(updatedOrder);
     }
 
 
@@ -61,7 +64,7 @@ export const OrderDetails = () => {
 				{error && <p>Error: {error}</p>}
 				<Link to={"/admin/manage-orders"}>Back to Orders</Link>
 
-				<div className="order-details">
+				<div className="order-div">
 					<h2>Order #{order?.id}</h2>
 					<h3 onClick={() => showOrderDetails(order?.id!)}>
 						Order Information
@@ -97,15 +100,15 @@ export const OrderDetails = () => {
                                                 value={editedItemQuantity[item.id ?? -1] ?? item.quantity}
                                                 onChange={(e) => handleQuantityChange(item.id ?? -1, Number(e.target.value))}
                                             />
-                                            <Button onClick={() => handleSave(item.id ?? -1)}>Save</Button>
-                                            <Button onClick={() => handleDelete(item.id ?? -1)}>Delete</Button>
+                                            <Button className="edit-btn" onClick={() => handleSave(item.id ?? -1)}>Save</Button>
+                                            <Button className="delete-btn" onClick={() => handleDelete(item.id ?? -1)}>Delete</Button>
                                         </>
                                     ) : (
                                         <>
                                             <p>
                                                 {item.quantity} x {item.unit_price}kr
                                             </p>
-                                            <Button onClick={() => setEditItemID(item.id ?? -1)}>Edit</Button>
+                                            <Button className="edit-btn" onClick={() => setEditItemID(item.id ?? -1)}>Update <MdEdit /></Button>
                                             
                                         </>
                                     )}
@@ -137,10 +140,10 @@ export const OrderDetails = () => {
 							</div>
 							<div className="customer-address-info">
 								<h4>Address Info:</h4>
-								<p>{order.customer_street_address} </p>
-								<p>{order.customer_postal_code}</p>
-								<p>{order.customer_city}</p>
-								<p>{order.customer_country}</p>
+								<p>{order.customer_street_address}, <br />
+								{order.customer_postal_code}, <br />
+								{order.customer_city}, <br />
+								{order.customer_country}</p>
 							</div>
 						</div>
 					)}

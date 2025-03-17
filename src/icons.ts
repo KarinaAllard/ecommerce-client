@@ -1,3 +1,3 @@
-import { MdExpandMore, MdExpandLess } from "react-icons/md";
+import { MdExpandMore, MdExpandLess, MdEdit } from "react-icons/md";
 
-export { MdExpandMore, MdExpandLess };
+export { MdExpandMore, MdExpandLess, MdEdit };

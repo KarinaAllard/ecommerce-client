@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCustomers } from "../hooks/useCustomers";
 import { Link } from "react-router";
 import { Button } from "../../components/Button";
-import { MdExpandLess, MdExpandMore } from "../../icons";
+import { MdEdit, MdExpandLess, MdExpandMore } from "../../icons";
 
 export const ManageCustomers = () => {
 	const { customers, isLoading, error, deleteCustomerHandler } = useCustomers();
@@ -55,7 +55,7 @@ export const ManageCustomers = () => {
 								<div className="button-div">
 									<Button className="edit-btn">
 										<Link to={`/admin/update-customer/${customer.id}`}>
-											Update
+											Update <MdEdit />
 										</Link>
 									</Button>
 									<Button

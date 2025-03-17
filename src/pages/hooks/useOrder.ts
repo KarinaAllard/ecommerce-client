@@ -25,5 +25,5 @@ export const useOrder = (orderId: number) => {
         }
     }, [orderId]);
 
-    return { order, isLoading, error }
+    return { order, isLoading, error, setOrder, fetchOrder }
 }
