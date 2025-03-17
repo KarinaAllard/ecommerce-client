@@ -63,7 +63,6 @@ export const OrderDetails = () => {
 			<div className="order-wrapper">
 				{isLoading && <p>Loading orders...</p>}
 				{error && <p>Error: {error}</p>}
-				<Link to={"/admin/manage-orders"}>Back to Orders</Link>
 
 				<div className="order-div">
 					<h2>Order #{order?.id}</h2>
@@ -101,15 +100,20 @@ export const OrderDetails = () => {
                                         value={editedItemQuantity[item.id ?? -1] ?? item.quantity}
                                         onChange={(e) => handleQuantityChange(item.id ?? -1, Number(e.target.value))}
                                     />
+                                    <div className="button-div">
                                     <Button className="edit-btn" onClick={() => handleSave(item.id ?? -1)}>Save</Button>
                                     <Button className="delete-btn" onClick={() => handleDelete(item.id ?? -1)}>Delete</Button>
+                                    </div>
                                 </>
                             ) : (
                                 <>
                                     <p>
                                         {item.quantity} x {item.unit_price}kr
                                     </p>
+                                    <div className="button-div">
                                     <Button className="edit-btn" onClick={() => setEditItemID(item.id ?? -1)}>Update <MdEdit /></Button>
+
+                                    </div>
                                     
                                 </>
                             )}
@@ -149,8 +153,10 @@ export const OrderDetails = () => {
 						</div>
 					)}
 				</div>
-
+                <div className="button-div">
                 <Button className="edit-btn"><Link to={`/admin/update-order/${order?.id}`}>Edit Order</Link></Button>
+                </div>
+				<Link to={"/admin/manage-orders"}>Back to Orders</Link>
 			</div>
 		</div>
 	);

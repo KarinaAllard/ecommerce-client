@@ -17,11 +17,28 @@
         width: 100%;
         min-width: 280px;
     
+        .order-item {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+
+            input {
+                font-size: 1.3rem;
+                background-color: #fff;
+                color: var(--dark-blue);
+                width: 50px;
+            }
+        }
+
         p {
             margin: 0 0 1rem 0;
         }
 
         .button-div {
+            
+            display: flex;
+            gap: 1rem;
 
             button {
                 margin: 0 0.5rem;
@@ -80,4 +97,13 @@
             color: var(--dark-blue);
         }
     }
+
+    a {
+        color: var(--dark-blue);
+    }
+
+    a:hover {
+        color: var(--beige);
+    }
 }
+
