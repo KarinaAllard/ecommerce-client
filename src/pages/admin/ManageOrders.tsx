@@ -19,12 +19,6 @@ export const ManageOrders = () => {
 			{error && <p>Error: {error}</p>}
 
 			<div className="order-wrapper">
-				<div className="button-div">
-					<Button type="button" className="edit-btn">
-						<Link to={"/admin/create-order"}>Create Order</Link>
-					</Button>
-				</div>
-
 				{orders.length === 0 && !isLoading && <p>No orders found.</p>}
 				{orders.map((order) => (
 					<div className="order-div" key={order.id}>
