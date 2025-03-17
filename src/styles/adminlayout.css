@@ -1,0 +1,109 @@
+.customer-wrapper,
+.product-wrapper,
+.order-wrapper { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem;
+    padding: 1rem;
+    gap: 1rem;
+
+    .customer-div,
+    .product-div,
+    .order-div {
+        background-color: var(--beige);
+        padding: 1rem;
+        border-radius: 10px;
+        width: 100%;
+        min-width: 280px;
+    
+        .order-item {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+
+            input {
+                font-size: 1.3rem;
+                background-color: #fff;
+                color: var(--dark-blue);
+                width: 50px;
+            }
+        }
+
+        p {
+            margin: 0 0 1rem 0;
+        }
+
+        .button-div {
+            
+            display: flex;
+            gap: 1rem;
+
+            button {
+                margin: 0 0.5rem;
+            }
+        }
+            h3 {
+                cursor: pointer;
+            }
+    }
+
+    .form-div {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        padding: 1rem;
+
+        input {
+            width: 85%;
+            font-size: 1.3rem;
+            background-color: var(--beige);
+            color: var(--brown);
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 0.3rem;
+        }
+
+        input::placeholder {
+            font-style: italic;
+            color: rgba(47, 79, 79, 0.7);
+        }
+
+        label {
+            font-family: var(--standard-text);
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+    }
+
+    .button-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        a {
+            color: var(--beige);
+        }
+
+        a:hover {
+            color: var(--dark-blue);
+        }
+
+        button a {
+            color: var(--dark-blue);
+        }
+    }
+
+    a {
+        color: var(--dark-blue);
+    }
+
+    a:hover {
+        color: var(--beige);
+    }
+}
+
