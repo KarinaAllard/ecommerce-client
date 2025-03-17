@@ -1,20 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router"
 import { updateOrder } from "../../services/orderService";
 import { Button } from "../../components/Button";
+import { useOrder } from "../hooks/useOrder";
 
 export const UpdateOrder = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
-    const [orderStatus, setOrderStatus] = useState<string>("pending");
-    const [paymentStatus, setPaymentStatus] = useState<string>("unpaid");
+    const { order, isLoading, error, setOrder } = useOrder(Number(id));
+
+    const [orderStatus, setOrderStatus] = useState<string>("");
+    const [paymentStatus, setPaymentStatus] = useState<string>("");
+
+    useEffect(() => {
+        if (order) {
+            setOrderStatus(order.order_status);
+            setPaymentStatus(order.payment_status);
+        }
+    }, [order]);
 
     const handleSaveChanges = async () => {
         try {
             await updateOrder(Number(id), {
-                order_status: orderStatus, payment_status: paymentStatus,
-                payment_id: ""
+                order_status: orderStatus, 
+                payment_status: paymentStatus,
+                payment_id: order?.payment_id || "",
             });
             navigate(`/admin/order-details/${id}`);
         } catch (error) {
@@ -22,6 +33,10 @@ export const UpdateOrder = () => {
 
         }
     }
+
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
+
 
     return (
         <div>
@@ -40,7 +55,7 @@ export const UpdateOrder = () => {
 
             <h3>Payment Status</h3>
             <select
-                value={orderStatus}
+                value={paymentStatus}
                 onChange={(e) => setPaymentStatus(e.target.value)}
             >
                 <option value="unpaid">Unpaid</option>

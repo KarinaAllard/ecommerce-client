@@ -3,18 +3,48 @@ import { useOrder } from "../hooks/useOrder";
 import { useState } from "react";
 import { MdEdit, MdExpandLess, MdExpandMore } from "../../icons";
 import { Button } from "../../components/Button";
+import { updateOrderItem, deleteOrderItem } from "../../services/orderItemService";
+import { fetchOrder } from "../../services/orderService";
 
 
 export const OrderDetails = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 
-	const { order, isLoading, error } = useOrder(Number(id));
+	const { order, isLoading, error, setOrder } = useOrder(Number(id));
     
 	const [showOrderByID, setShowOrderByID] = useState<number | null>(null);
 	const [showOrderItemsByID, setShowOrderItemsByID] = useState<number | null>(null);
 	const [showCustomerByID, setShowCustomerByID] = useState<number | null>(null);
+    const [editItemID, setEditItemID] = useState<number | null>(null);
+    const [editedItemQuantity, setEditedItemQuantity] = useState<{ [key: number]: number }>({});
+
+    const handleQuantityChange = (itemId: number, newItemQuantity: number) => {
+        setEditedItemQuantity((oldItemQuantity) => ({
+            ...oldItemQuantity,
+            [itemId]: newItemQuantity,
+        }))
+    }
   
+    const handleSave = async (itemId: number) => {
+            const newItemQuantity = editedItemQuantity[itemId];
+    
+            if (newItemQuantity !== undefined) {
+                await updateOrderItem(itemId, { quantity: newItemQuantity});
+                const updatedOrder = await fetchOrder(Number(id))
+                
+                setOrder(updatedOrder);
+                setEditItemID(null);
+            }
+        }
+    
+        const handleDelete = async (itemId: number) => {
+            await deleteOrderItem(itemId);
+    
+            const updatedOrder = await fetchOrder(Number(id));
+            setOrder(updatedOrder);
+        }
+
 	const showOrderDetails = (orderId: number) => {
 		setShowOrderByID((prevId) => (prevId === orderId ? null : orderId));
 	};
@@ -63,9 +93,27 @@ export const OrderDetails = () => {
 					<div className="order-item-info">
 						{order?.order_items.map((item) => (
 							<div key={item.id} className="order-item">
-								<h4>{item.product_name}</h4>
-								<p>{item.quantity} x {item.unit_price}kr</p>
-							</div>
+                            <h4>{item.product_name}</h4>
+                            {editItemID === item.id ? (
+                                <>
+                                    <input 
+                                        type="number" 
+                                        value={editedItemQuantity[item.id ?? -1] ?? item.quantity}
+                                        onChange={(e) => handleQuantityChange(item.id ?? -1, Number(e.target.value))}
+                                    />
+                                    <Button className="edit-btn" onClick={() => handleSave(item.id ?? -1)}>Save</Button>
+                                    <Button className="delete-btn" onClick={() => handleDelete(item.id ?? -1)}>Delete</Button>
+                                </>
+                            ) : (
+                                <>
+                                    <p>
+                                        {item.quantity} x {item.unit_price}kr
+                                    </p>
+                                    <Button className="edit-btn" onClick={() => setEditItemID(item.id ?? -1)}>Update <MdEdit /></Button>
+                                    
+                                </>
+                            )}
+                        </div>
 						))}
 					</div>
 				)}

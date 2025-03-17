@@ -5,7 +5,7 @@ import {
 } from "../../types/IOrderItem";
 import {
     deleteOrderItem,
-    fetchOrderItems,
+    // fetchOrderItems,
     updateOrderItem,
 } from "../../services/orderItemService";
 import { fetchOrder } from "../../services/orderService"
