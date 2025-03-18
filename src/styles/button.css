@@ -8,12 +8,16 @@
     }
 }
 
+.cart-btn {
+    background-color: var(--orange);
+}
+
 .delete-btn {
     background-color: #D14141;
 }
 
 button {
-    width: 18dvw;
+    width: 100%;
     min-width: 130px;
     font-family: var(--heading-text);
 }

@@ -7,6 +7,8 @@
     --beige: #E6D1B4;
     --standard-text: 'Libre Baskerville', Georgia, serif;
     --heading-text: 'Roboto', Arial, sans-serif;
+
+    box-sizing: border-box;
 }
 
 body {
