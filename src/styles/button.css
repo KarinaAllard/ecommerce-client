@@ -16,6 +16,7 @@
     background-color: #D14141;
 }
 
+
 button {
     width: 100%;
     min-width: 130px;
@@ -25,4 +26,10 @@ button {
 button:hover {
     color: var(--dark-blue);
     font-weight: 600;
+}
+
+button:disabled,
+button[disabled] {
+    background-color: grey;
+    color: var(--dark-blue);
 }
