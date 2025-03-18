@@ -4,14 +4,30 @@ import "../../styles/shop.css";
 import { useParams } from "react-router";
 import { Link } from "react-router";
 import { MdChevronLeft } from "../../icons";
+import { useContext } from "react";
+import CartContext from "../../context/CartContext";
+import { CartActionType } from "../../reducers/CartReducer";
 
 export const ProductDetails = () => {
 	const { id } = useParams();
+    const { cart, dispatch } = useContext(CartContext);
 	const { products, isLoading, error } = useProducts();
 
 	const product = products.find((p) => p.id === Number(id));
 
     const inStock = (product?.stock ?? 0) > 0;
+
+    const handleAddToCart = () => {
+        if (product) {
+            dispatch({
+                type: CartActionType.ADD_ITEM,
+                payload: {
+                    product,
+                    quantity: 1,
+                }
+            })
+        }
+    }
 
 	return (
 		<div className="shop-wrapper">
@@ -35,7 +51,7 @@ export const ProductDetails = () => {
 					</div>
                     
 					<div className="button-div">
-						<Button className="cart-btn" disabled={!inStock}>
+						<Button onClick={handleAddToCart} className="cart-btn" disabled={!inStock}>
                             {inStock ?  "Add to Cart" : "Out of Stock"}</Button>
                         {/* <div className="amount-div"><span className="fa-icon"><FaMinus /></span><span>1</span><span className="fa-icon"><FaPlus /></span></div>     */}
 					</div>

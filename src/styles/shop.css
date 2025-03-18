@@ -1,4 +1,24 @@
 
+.cart-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem;
+    margin-top: 0;
+    padding: 2rem 1rem;
+    gap: 1rem;
+    background-color: var(--light-blue);
+
+    .cart-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        width: 100%;
+    }
+}
+
 .shop-wrapper {
     
     .product-wrapper {
