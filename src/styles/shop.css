@@ -16,6 +16,44 @@
         align-items: center;
         padding: 2rem;
         width: 100%;
+
+        .cart-items {
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--dark-blue);
+
+            .cart-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                max-width: 400px;
+
+                .item-actions {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 1rem;
+
+                    .quantity-controls {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 2rem;
+                        margin-bottom: 1rem;
+                    }
+                }
+            }
+        }
+
+        .cart-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-top: 1rem;
+
+        }
     }
 }
 
