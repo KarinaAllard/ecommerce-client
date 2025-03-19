@@ -37,10 +37,10 @@ export const Cart = () => {
     return (
 
         <div className="cart-wrapper">
-            <h2>Shopping Cart</h2>
+            <h1>Shopping Cart</h1>
 
             {cart.length === 0 ? (
-                <p>Your cart is empty</p>
+                <h3>Your cart is empty</h3>
             ) : (
                 <div className="cart-div">
                     <div className="cart-items">
