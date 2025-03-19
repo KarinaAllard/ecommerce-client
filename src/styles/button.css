@@ -12,20 +12,29 @@
     background-color: var(--orange);
 }
 
-.delete-btn {
+.delete-btn,
+.trash-btn {
     background-color: #D14141;
 }
 
+.plus-btn,
+.minus-btn {
+    background-color: var(--orange);
+}
 
 button {
     width: 100%;
     min-width: 130px;
     font-family: var(--heading-text);
+    border: 2px solid var(--dark-blue);
+    transition: transform 0.3s ease-in-out;
 }
 
 button:hover {
     color: var(--dark-blue);
     font-weight: 600;
+    transform: scale(1.03);
+    border: 2px solid var(--dark-blue);
 }
 
 button:disabled,

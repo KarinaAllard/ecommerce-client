@@ -47,19 +47,21 @@ export const Cart = () => {
                         {cart.map((item) => (
                             <div key={item.product.id} className="cart-item">
                                 <div className="item-details">
+                                    <div className="product-img">
                                     <img src={item.product.image} alt={item.product.name} />
-                                    <div>
+                                    </div>
+                                    <div className="product-text">
                                         <h3>{item.product.name}</h3>
                                         <p>{item.product.price} kr</p>
                                     </div>
                                 </div>
                                 <div className="item-actions">
                                     <div className="quantity-controls">
-                                        <Button onClick={() => handleChangeQuantity(item, -1)}><FaMinus /></Button>
+                                        <Button className="minus-btn" onClick={() => handleChangeQuantity(item, -1)}><FaMinus /></Button>
                                         <span>{item.quantity}</span>
-                                        <Button onClick={() => handleChangeQuantity(item, 1)}><FaPlus /></Button>
+                                        <Button className="plus-btn" onClick={() => handleChangeQuantity(item, 1)}><FaPlus /></Button>
                                     </div>
-                                    <Button onClick={() => handleRemoveFromCart(item)}><FaTrash /></Button>
+                                    <Button className="trash-btn" onClick={() => handleRemoveFromCart(item)}><FaTrash /></Button>
                                 </div>
                             </div>
                         ))}
@@ -67,8 +69,8 @@ export const Cart = () => {
 
                     <div className="cart-summary">
                         <h3>Total: {totalCartPrice} kr</h3>
-                        <Button onClick={handleResetCart}>Clear Cart</Button>
-                        <Button disabled={cart.length === 0}>Proceed to Checkout</Button>
+                        <Button className="trash-btn" onClick={handleResetCart}>Clear Cart</Button>
+                        <Button className="submit-btn" disabled={cart.length === 0}>Proceed to Checkout</Button>
                     </div>
                 </div>
             )}
