@@ -1,0 +1,70 @@
+.home-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        margin-top: 3rem;
+    }
+    
+    .frittte-employees {
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--medium-blue);
+        margin: 1rem;
+        gap: 2rem;
+
+        .frittte-div {
+            background-color: var(--light-blue);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+    
+    }
+
+}
+
+@media screen and (min-width: 480px) {
+
+    .home-wrapper {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+}
+
+@media screen and (min-width: 1000px) {
+
+    .home-wrapper {
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        .frittte-employees {
+            display: flex;
+            flex-direction: row;
+            max-width: 1000px;
+            height: 60dvh;
+            
+            .frittte-div {
+                align-items: center;
+                background-color: var(--light-blue);
+                
+                img {
+                    height: 420px;
+                    overflow: hidden;
+                    width: 300px;
+                }
+            }
+        
+        }
+    }
+
+}
+
+
