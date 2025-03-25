@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ICustomer } from "../../types/ICustomer";
 import axios from "axios";
 import { Button } from "../../components/Button";
 import { Link } from "react-router";
 import { API_URL } from "../../services/baseService";
 import "../../styles/checkout.css"
+import { loadStripe } from "@stripe/stripe-js";
+import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
+
+const stripePromise = loadStripe('pk_test_51R4HWuJgBMb1kgR6M53MA065w6sD9NqRol0862iMHYh4YgdyKvWOKLjwX3tLwLZTOEohLQMha95ouScTn8sWSnnH00k9vKJutX');
 
 export const Checkout = () => {
 	const [formData, setFormData] = useState<ICustomer>({
@@ -21,7 +25,9 @@ export const Checkout = () => {
 	const [existingCustomer, setExistingCustomer] = useState<ICustomer | null>(
 		null
 	);
+	const [clientSecret, setClientSecret] = useState<string | null>(null);
 	const [error, setError] = useState<string>("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,15 +35,41 @@ export const Checkout = () => {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (isLoading) return;
+		setIsLoading(true);
+		setError("");
+
 		try {
 			const response = await axios.get(`${API_URL}/customers/email/${formData.email}`);
 			setExistingCustomer(response.data);
+			console.log("Customer found:", response.data);
 		} catch (err) {
 			setError("Customer not found. Creating new customer...");
 			await axios.post(`${API_URL}/customers`, formData);
 			setExistingCustomer(formData);
+		} finally {
+			setIsLoading(false);
 		}
 	};
+
+	const fetchClientSecret = useCallback(async () => {
+		if (!existingCustomer) return;
+
+		try {
+			const { data } = await axios.post(`${API_URL}/stripe/create-checkout-session`, {
+				customer: existingCustomer,
+			});
+			setClientSecret(data.clientSecret);
+		} catch (error) {
+			setError("Error creating payment session.");
+		}
+	}, [existingCustomer]);
+
+	useEffect(() => {
+		if (existingCustomer) {
+			fetchClientSecret();
+		}
+	}, [existingCustomer, fetchClientSecret])
 
 	return (
 		<div className="checkout-wrapper">
@@ -132,6 +164,14 @@ export const Checkout = () => {
 				</div>
                 </form>
 			</div>
+			{existingCustomer && (
+                <EmbeddedCheckoutProvider
+                stripe={stripePromise}
+                options={{ clientSecret }}
+            >
+                <EmbeddedCheckout />
+                </EmbeddedCheckoutProvider>
+            )}
 		</div>
 	);
 };
