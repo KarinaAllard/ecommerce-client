@@ -11,16 +11,19 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe
 const stripePromise = loadStripe('pk_test_51R4HWuJgBMb1kgR6M53MA065w6sD9NqRol0862iMHYh4YgdyKvWOKLjwX3tLwLZTOEohLQMha95ouScTn8sWSnnH00k9vKJutX');
 
 export const Checkout = () => {
-	const [formData, setFormData] = useState<ICustomer>({
-		firstname: "",
-		lastname: "",
-		email: "",
-		password: "",
-		phone: "",
-		street_address: "",
-		postal_code: "",
-		city: "",
-		country: "",
+	const [formData, setFormData] = useState<ICustomer>(() => {
+		const savedData = localStorage.getItem("checkoutFormData");
+		return savedData ? JSON.parse(savedData) : {
+			firstname: "",
+			lastname: "",
+			email: "",
+			password: "",
+			phone: "",
+			street_address: "",
+			postal_code: "",
+			city: "",
+			country: "",
+		}
 	});
 	const [existingCustomer, setExistingCustomer] = useState<ICustomer | null>(
 		null
@@ -28,6 +31,10 @@ export const Checkout = () => {
 	const [clientSecret, setClientSecret] = useState<string | null>(null);
 	const [error, setError] = useState<string>("");
 	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		localStorage.setItem("checkoutFormData", JSON.stringify(formData))
+	}, [formData]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,7 +51,7 @@ export const Checkout = () => {
 			setExistingCustomer(response.data);
 			console.log("Customer found:", response.data);
 		} catch (err) {
-			setError("Customer not found. Creating new customer...");
+			setError("Customer not found. Creating new customer.");
 			await axios.post(`${API_URL}/customers`, formData);
 			setExistingCustomer(formData);
 		} finally {
@@ -75,7 +82,9 @@ export const Checkout = () => {
 		<div className="checkout-wrapper">
 			<h1>Checkout</h1>
 			<div className="checkout-div">
-                {error && <p>Error: {error}</p>}
+				{error && <p>Error: {error}</p>}
+				{!existingCustomer && (
+
 				<form onSubmit={handleSubmit}>
                 <div className="form-div">
                     <label htmlFor="firstname">First Name:</label>
@@ -163,15 +172,23 @@ export const Checkout = () => {
 					<Link to={"/cart"}>Back to Cart</Link>
 				</div>
                 </form>
-			</div>
-			{existingCustomer && (
-                <EmbeddedCheckoutProvider
-                stripe={stripePromise}
-                options={{ clientSecret }}
-            >
-                <EmbeddedCheckout />
-                </EmbeddedCheckoutProvider>
+				)}
+
+			{existingCustomer && clientSecret && (
+				<div className="payment-container">
+					<EmbeddedCheckoutProvider
+						stripe={stripePromise}
+						options={{ clientSecret }}
+						>
+						<EmbeddedCheckout />
+					</EmbeddedCheckoutProvider>
+					<div className="button-div">
+						<Link to={"/cart"}>Back to Cart</Link>
+					</div>
+				</div>
+                
             )}
+			</div>
 		</div>
 	);
 };
