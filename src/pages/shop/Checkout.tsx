@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button } from "../../components/Button";
 import { Link } from "react-router";
 import { API_URL } from "../../services/baseService";
+import "../../styles/checkout.css"
 
 export const Checkout = () => {
 	const [formData, setFormData] = useState<ICustomer>({
