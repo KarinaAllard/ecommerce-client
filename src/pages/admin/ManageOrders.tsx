@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { useOrders } from "../hooks/useOrders";
-import { Link, useNavigate } from "react-router";
-import { Button } from "../../components/Button";
-import { MdExpandLess, MdExpandMore } from "../../icons";
+import { useNavigate } from "react-router";
 
 export const ManageOrders = () => {
-	const { orders, isLoading, error, deleteOrderHandler } = useOrders();
+	const { orders, isLoading, error } = useOrders();
 	const navigate = useNavigate();
 
 	const handleOrderClick = (orderId: number) => {
