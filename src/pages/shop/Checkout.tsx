@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { ICustomer } from "../../types/ICustomer";
 import axios from "axios";
 import { Button } from "../../components/Button";
@@ -7,6 +7,7 @@ import { API_URL } from "../../services/baseService";
 import "../../styles/checkout.css"
 import { loadStripe } from "@stripe/stripe-js";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
+import CartContext from "../../context/CartContext";
 
 const stripePromise = loadStripe('pk_test_51R4HWuJgBMb1kgR6M53MA065w6sD9NqRol0862iMHYh4YgdyKvWOKLjwX3tLwLZTOEohLQMha95ouScTn8sWSnnH00k9vKJutX');
 
@@ -31,6 +32,7 @@ export const Checkout = () => {
 	const [clientSecret, setClientSecret] = useState<string | null>(null);
 	const [error, setError] = useState<string>("");
 	const [isLoading, setIsLoading] = useState(false);
+	const { cart } = useContext(CartContext);
 
 	useEffect(() => {
 		localStorage.setItem("checkoutFormData", JSON.stringify(formData))
@@ -59,18 +61,20 @@ export const Checkout = () => {
 		}
 	};
 
+
 	const fetchClientSecret = useCallback(async () => {
-		if (!existingCustomer) return;
+		if (!existingCustomer || cart.length === 0) return;
 
 		try {
 			const { data } = await axios.post(`${API_URL}/stripe/create-checkout-session`, {
 				customer: existingCustomer,
+				cart,
 			});
 			setClientSecret(data.clientSecret);
 		} catch (error) {
 			setError("Error creating payment session.");
 		}
-	}, [existingCustomer]);
+	}, [existingCustomer, cart]);
 
 	useEffect(() => {
 		if (existingCustomer) {
