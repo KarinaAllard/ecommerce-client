@@ -54,8 +54,13 @@ export const Checkout = () => {
 			console.log("Customer found:", response.data);
 		} catch (err) {
 			setError("Customer not found. Creating new customer.");
-			await axios.post(`${API_URL}/customers`, formData);
-			setExistingCustomer(formData);
+			try {
+				const createResponse = await axios.post(`${API_URL}/customers`, formData);
+				setExistingCustomer(createResponse.data);
+				console.log("New customer created")
+			} catch (error) {
+				console.log("Error creating customer");
+			}
 		} finally {
 			setIsLoading(false);
 		}
@@ -67,7 +72,7 @@ export const Checkout = () => {
 
 		try {
 			const { data } = await axios.post(`${API_URL}/stripe/create-checkout-session`, {
-				customer: existingCustomer,
+				customer_id: existingCustomer.id,
 				cart,
 			});
 			setClientSecret(data.clientSecret);
@@ -77,10 +82,10 @@ export const Checkout = () => {
 	}, [existingCustomer, cart]);
 
 	useEffect(() => {
-		if (existingCustomer) {
+		if (existingCustomer?.id) {
 			fetchClientSecret();
 		}
-	}, [existingCustomer, fetchClientSecret])
+	}, [existingCustomer?.id, fetchClientSecret])
 
 	return (
 		<div className="checkout-wrapper">
