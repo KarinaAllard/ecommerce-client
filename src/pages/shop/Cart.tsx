@@ -22,6 +22,13 @@ export const Cart = () => {
     }
 
     const handleChangeQuantity = (cartItem: CartItem, change: number) => {
+        const newQuantity = cartItem.quantity + change;
+
+        if(newQuantity > cartItem.product.stock) {
+            alert("Oops, this item does not have enough stock!");
+            return;
+        }
+        
         dispatch({
             type: CartActionType.CHANGE_QUANTITY,
             payload: { ...cartItem, quantity: change },

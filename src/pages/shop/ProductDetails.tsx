@@ -19,6 +19,14 @@ export const ProductDetails = () => {
 
     const handleAddToCart = () => {
         if (product) {
+			const cartItem = cart.find((item) => item.product.id === product.id);
+			const currentQuantity = cartItem ? cartItem.quantity : 0;
+
+			if (currentQuantity + 1 > product.stock) {
+				alert("Oops, the item is out of stock!")
+				return;
+			}
+			
             dispatch({
                 type: CartActionType.ADD_ITEM,
                 payload: {
