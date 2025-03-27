@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Button } from "../../components/Button";
 import { Link } from "react-router";
+import CartContext from "../../context/CartContext";
+import { CartActionType } from "../../reducers/CartReducer";
 
 export const OrderConfirmation = () => {
+    const { dispatch } = useContext(CartContext);
     const [orderItems, setOrderItems] = useState<any[]>([]);
 
     useEffect(() => {
@@ -12,7 +15,12 @@ export const OrderConfirmation = () => {
 
         localStorage.removeItem("cart");
         localStorage.removeItem("checkoutFormData")
-    }, [])
+
+        dispatch({
+            type: CartActionType.RESET_CART,
+            payload: null,
+        });
+    }, [dispatch])
 
     return (
 
