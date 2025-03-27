@@ -94,6 +94,11 @@
 }
 
 .shop-wrapper {
+
+    .banner {
+        color: var(--dark-blue);
+        background-color: var(--beige);
+    }
     
     .product-wrapper {
         display: flex;
