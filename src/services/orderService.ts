@@ -10,6 +10,10 @@ export const fetchOrder = async (orderId: number): Promise<IOrder> => {
     return await handleRequest(axios.get(`${API_URL}/orders/${orderId}`));
 }
 
+export const fetchOrderBySessionId = async (sessionId: string): Promise<IOrder> => {
+    return await handleRequest(axios.get(`${API_URL}/orders/payment/${sessionId}`))
+}
+
 export const createOrder = async (payload: OrderCreate): Promise<IOrder> => {
     return await handleRequest(axios.post(`${API_URL}/orders`, payload));
 };

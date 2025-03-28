@@ -3,44 +3,58 @@ import { Button } from "../../components/Button";
 import { Link } from "react-router";
 import CartContext from "../../context/CartContext";
 import { CartActionType } from "../../reducers/CartReducer";
+import { useOrderBySessionId } from "../hooks/useOrderBySessionId";
 
 export const OrderConfirmation = () => {
     const { dispatch } = useContext(CartContext);
+    const { order, isLoading, error } = useOrderBySessionId();
     const [orderItems, setOrderItems] = useState<any[]>([]);
 
     useEffect(() => {
-        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+        if (order) {
+            console.log("Fetched order:", order)
+            console.log("Order items:", order.order_items)
 
-        setOrderItems(cart);
+            setOrderItems(order.order_items || []);
+    
+            localStorage.removeItem("cart");
+            localStorage.removeItem("checkoutFormData")
+    
+            dispatch({
+                type: CartActionType.RESET_CART,
+                payload: null,
+            });
+        }
 
-        localStorage.removeItem("cart");
-        localStorage.removeItem("checkoutFormData")
-
-        dispatch({
-            type: CartActionType.RESET_CART,
-            payload: null,
-        });
-    }, [dispatch])
+    }, [order, dispatch])
 
     return (
 
         <div className="order-confirmation-wrapper">
             <h1>Thanks for your purchase!</h1>
-            <p>Your order has been placed successfully.</p>
-
-            {orderItems.length > 0 && (
-                <div className="order-summary">
-                    <h2>Order Summary</h2>
-                    <div>
-                        {orderItems.map((item, index) => (
-                            <div key={index}>
-                                <img src={item.product.image} alt={item.product.name} />
-                                <h4>{item.product.name}</h4>
-                                <p>Quantity: {item.quantity}</p>
-                            </div>
-                        ))}
+            {isLoading ? (
+                <p>Loading order details...</p>
+            ) : error ? (
+                <p>{error}</p>
+            ) : (
+                <>
+                <p>Your order has been placed successfully.</p>
+                
+                {orderItems.length > 0 && (
+                    <div className="order-summary">
+                        <h2>Order Summary</h2>
+                        <div>
+                            {orderItems.map((item, index) => (
+                                <div key={index}>
+                                    <h4>{item.product_name}</h4>
+                                    <p>Quantity: {item.quantity}</p>
+                                    <p>Price: ${item.unit_price}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
+                </>
             )}
 
             <div className="button-div">
