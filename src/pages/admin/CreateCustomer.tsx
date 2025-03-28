@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCustomers } from "../hooks/useCustomers";
+import { useCustomers } from "../../hooks/useCustomers";
 import { ICustomer } from "../../types/ICustomer";
 import { Button } from "../../components/Button";
 import { Link } from "react-router";
@@ -43,7 +43,7 @@ export const CreateCustomer = () => {
 			<form onSubmit={handleSubmit}>
 				<h2>Create New Customer</h2>
 				<div className="form-div">
-                    <label htmlFor="firstname">First Name:</label>
+					<label htmlFor="firstname">First Name:</label>
 					<input
 						type="text"
 						name="firstname"
@@ -52,7 +52,7 @@ export const CreateCustomer = () => {
 						placeholder="First Name"
 						required
 					/>
-                    <label htmlFor="lastname">Last Name:</label>
+					<label htmlFor="lastname">Last Name:</label>
 					<input
 						type="text"
 						name="lastname"
@@ -61,7 +61,7 @@ export const CreateCustomer = () => {
 						placeholder="Last Name"
 						required
 					/>
-                    <label htmlFor="email">Email:</label>
+					<label htmlFor="email">Email:</label>
 					<input
 						type="email"
 						name="email"
@@ -70,7 +70,7 @@ export const CreateCustomer = () => {
 						placeholder="Email"
 						required
 					/>
-                    <label htmlFor="password">Password:</label>
+					<label htmlFor="password">Password:</label>
 					<input
 						type="password"
 						name="password"
@@ -80,7 +80,7 @@ export const CreateCustomer = () => {
 						className="input-pw"
 						required
 					/>
-                    <label htmlFor="phone">Phone:</label>
+					<label htmlFor="phone">Phone:</label>
 					<input
 						type="text"
 						name="phone"
@@ -88,7 +88,7 @@ export const CreateCustomer = () => {
 						onChange={handleChange}
 						placeholder="Phone Number"
 					/>
-                    <label htmlFor="street_address">Street Address:</label>
+					<label htmlFor="street_address">Street Address:</label>
 					<input
 						type="text"
 						name="street_address"
@@ -96,7 +96,7 @@ export const CreateCustomer = () => {
 						onChange={handleChange}
 						placeholder="Street Address"
 					/>
-                    <label htmlFor="postal_code">Postal Code:</label>
+					<label htmlFor="postal_code">Postal Code:</label>
 					<input
 						type="text"
 						name="postal_code"
@@ -104,7 +104,7 @@ export const CreateCustomer = () => {
 						onChange={handleChange}
 						placeholder="Postal Code"
 					/>
-                    <label htmlFor="city">City:</label>
+					<label htmlFor="city">City:</label>
 					<input
 						type="text"
 						name="city"
@@ -112,7 +112,7 @@ export const CreateCustomer = () => {
 						onChange={handleChange}
 						placeholder="City"
 					/>
-                    <label htmlFor="country">Country:</label>
+					<label htmlFor="country">Country:</label>
 					<input
 						type="text"
 						name="country"

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Button } from "../../components/Button";
-import { useProducts } from "../hooks/useProducts";
+import { useProducts } from "../../hooks/useProducts";
 import { useState } from "react";
 import { MdEdit, MdExpandLess, MdExpandMore } from "../../icons";
 
@@ -14,9 +14,9 @@ export const ManageProducts = () => {
 
 	return (
 		<div>
-            <h1>Manage Products</h1>
-            {isLoading && <p>Loading products...</p>}
-            {error && <p>Error: {error}</p>}
+			<h1>Manage Products</h1>
+			{isLoading && <p>Loading products...</p>}
+			{error && <p>Error: {error}</p>}
 			<div className="product-wrapper">
 				<div className="button-div">
 					<Button type="button" className="edit-btn">
