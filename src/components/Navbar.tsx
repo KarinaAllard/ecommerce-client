@@ -1,4 +1,5 @@
-import { Link, NavLink } from "react-router"
+import { FaShoppingCart } from "react-icons/fa"
+import { NavLink } from "react-router"
 
 export const Navbar = () => {
 
@@ -8,9 +9,11 @@ export const Navbar = () => {
             <ul className="nav-bar">
                 <li className="nav-item"><NavLink to={"/"}>Home</NavLink></li>
                 <li className="nav-item"><NavLink to={"/products"}>Shop</NavLink></li>
-                <li className="nav-item"><NavLink to={"/admin/manage-products"}>Admin</NavLink></li>
-                <li className="nav-item"><NavLink to={"/cart"}>To Cart</NavLink></li>
+                <li className="nav-item"><NavLink to={"/admin/manage-products"}>Admin</NavLink></li>    
             </ul>
+            <div className="cart-icon">
+                <NavLink to={"/cart"}><FaShoppingCart/></NavLink>
+            </div>
         </div>
     )
 }
