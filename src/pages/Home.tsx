@@ -37,7 +37,7 @@ export const Home = () => {
 						<p>
 							He is our lovely model that all of our clothes are fitted after.
 							If you have the body type of a long retired, mid forties gym
-							teacher with an alcohol problem this we guarantee that our clothes
+							teacher who has seen it all, we guarantee that our clothes
 							will fit perfectly.
 						</p>
 					</div>

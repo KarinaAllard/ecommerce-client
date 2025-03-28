@@ -55,6 +55,13 @@ main {
     min-height: 80dvh;
 }
 
+footer {
+    background-color: var(--light-blue);
+    padding: 2rem;
+    color: var(--dark-blue);
+    font-weight: 800;
+}
+
 @media screen and (min-width: 768px) {
 
     header {
