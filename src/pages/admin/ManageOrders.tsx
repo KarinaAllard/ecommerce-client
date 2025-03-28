@@ -1,4 +1,4 @@
-import { useOrders } from "../hooks/useOrders";
+import { useOrders } from "../../hooks/useOrders";
 import { useNavigate } from "react-router";
 
 export const ManageOrders = () => {
@@ -22,7 +22,6 @@ export const ManageOrders = () => {
 						<h3 onClick={() => handleOrderClick(order.id!)}>
 							Order number: #{order.id}
 						</h3>
-
 					</div>
 				))}
 			</div>

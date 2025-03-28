@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router";
-import { useCustomers } from "../hooks/useCustomers";
+import { useCustomers } from "../../hooks/useCustomers";
 import { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { ICustomer } from "../../types/ICustomer";

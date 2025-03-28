@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { updateOrder } from "../../services/orderService";
 import { Button } from "../../components/Button";
-import { useOrder } from "../hooks/useOrder";
+import { useOrder } from "../../hooks/useOrder";
 
 export const UpdateOrder = () => {
 	const { id } = useParams<{ id: string }>();
@@ -64,12 +64,12 @@ export const UpdateOrder = () => {
 					</select>
 				</div>
 
-					<div className="button-div">
-						<Button className="edit-btn" onClick={handleSaveChanges}>
-							Save Changes
-						</Button>
-					</div>
-                    <Link to={`/admin/order-details/${id}`}>Go Back</Link>
+				<div className="button-div">
+					<Button className="edit-btn" onClick={handleSaveChanges}>
+						Save Changes
+					</Button>
+				</div>
+				<Link to={`/admin/order-details/${id}`}>Go Back</Link>
 			</div>
 		</div>
 	);

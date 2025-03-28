@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
-import {
-	CustomerCreate,
-	CustomerUpdate,
-	ICustomer,
-} from "../../types/ICustomer";
+import { CustomerCreate, CustomerUpdate, ICustomer } from "../types/ICustomer";
 import {
 	createCustomer,
 	deleteCustomer,
 	fetchCustomers,
 	updateCustomer,
-} from "../../services/customerService";
+} from "../services/customerService";
 
 export const useCustomers = () => {
 	const [customers, setCustomers] = useState<ICustomer[]>([]);

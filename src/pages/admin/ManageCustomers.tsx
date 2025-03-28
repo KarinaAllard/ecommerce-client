@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCustomers } from "../hooks/useCustomers";
+import { useCustomers } from "../../hooks/useCustomers";
 import { Link } from "react-router";
 import { Button } from "../../components/Button";
 import { MdEdit, MdExpandLess, MdExpandMore } from "../../icons";
