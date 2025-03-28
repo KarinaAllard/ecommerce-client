@@ -16,6 +16,8 @@ import { UpdateOrder } from "./pages/admin/UpdateOrder";
 import { UpdateProduct } from "./pages/admin/UpdateProduct";
 import { OrderDetails } from "./pages/admin/OrderDetails";
 import { CartProvider } from "./context/CartContext";
+import { Checkout } from "./pages/shop/Checkout";
+import { OrderConfirmation } from "./pages/shop/OrderConfirmation";
 
 export const router = createBrowserRouter([
 	{
@@ -90,6 +92,22 @@ export const router = createBrowserRouter([
 				element: (
 				<CartProvider>
 					<Cart />
+				</CartProvider>
+				),
+			},
+			{
+				path: "/checkout",
+				element: (
+				<CartProvider>
+					<Checkout />
+				</CartProvider>
+				),
+			},
+			{
+				path: "/order-confirmation",
+				element: (
+				<CartProvider>
+					<OrderConfirmation />
 				</CartProvider>
 				),
 			},

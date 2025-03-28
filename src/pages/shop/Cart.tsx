@@ -4,6 +4,7 @@ import { CartItem } from "../../types/CartItem";
 import { CartActionType } from "../../reducers/CartReducer";
 import { Button } from "../../components/Button";
 import { FaMinus, FaPlus, FaTrash } from "../../icons";
+import { Link } from "react-router";
 
 export const Cart = () => {
     const { cart, dispatch } = useContext(CartContext);
@@ -21,6 +22,13 @@ export const Cart = () => {
     }
 
     const handleChangeQuantity = (cartItem: CartItem, change: number) => {
+        const newQuantity = cartItem.quantity + change;
+
+        if(newQuantity > cartItem.product.stock) {
+            alert("Oops, this item does not have enough stock!");
+            return;
+        }
+        
         dispatch({
             type: CartActionType.CHANGE_QUANTITY,
             payload: { ...cartItem, quantity: change },
@@ -70,7 +78,7 @@ export const Cart = () => {
                     <div className="cart-summary">
                         <h3>Total: {totalCartPrice} kr</h3>
                         <Button className="trash-btn" onClick={handleResetCart}>Clear Cart</Button>
-                        <Button className="submit-btn" disabled={cart.length === 0}>Proceed to Checkout</Button>
+                        <Button className="submit-btn" disabled={cart.length === 0}><Link to={"/checkout"}>Proceed to Checkout</Link></Button>
                     </div>
                 </div>
             )}

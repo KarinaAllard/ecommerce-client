@@ -1,0 +1,51 @@
+.checkout-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    .form-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 1rem;
+
+        input {
+            font-size: 1.3rem;
+            background-color: var(--beige);
+            color: var(--brown);
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 0.3rem;
+        }
+
+        input::placeholder {
+            font-style: italic;
+            color: rgba(47, 79, 79, 0.7);
+        }
+
+        label {
+            font-family: var(--standard-text);
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+    }
+
+    .button-div {
+        max-width: 300px;
+        
+        button {
+            margin-bottom: 1rem;
+        }
+    }
+
+    a {
+        color: var(--dark-blue);
+    }
+
+    a:hover {
+        color: var(--beige);
+    }
+}

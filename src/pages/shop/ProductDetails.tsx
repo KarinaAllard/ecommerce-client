@@ -4,7 +4,7 @@ import "../../styles/shop.css";
 import { useParams } from "react-router";
 import { Link } from "react-router";
 import { MdChevronLeft } from "../../icons";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CartContext from "../../context/CartContext";
 import { CartActionType } from "../../reducers/CartReducer";
 
@@ -12,6 +12,7 @@ export const ProductDetails = () => {
 	const { id } = useParams();
     const { cart, dispatch } = useContext(CartContext);
 	const { products, isLoading, error } = useProducts();
+	const [ cartBanner, setCartBanner ] = useState(false);
 
 	const product = products.find((p) => p.id === Number(id));
 
@@ -19,6 +20,14 @@ export const ProductDetails = () => {
 
     const handleAddToCart = () => {
         if (product) {
+			const cartItem = cart.find((item) => item.product.id === product.id);
+			const currentQuantity = cartItem ? cartItem.quantity : 0;
+
+			if (currentQuantity + 1 > product.stock) {
+				alert("Oops, the item is out of stock!")
+				return;
+			}
+			
             dispatch({
                 type: CartActionType.ADD_ITEM,
                 payload: {
@@ -26,6 +35,8 @@ export const ProductDetails = () => {
                     quantity: 1,
                 }
             })
+			setCartBanner(true);
+			setTimeout(() => setCartBanner(false), 5000)
         }
     }
 
@@ -33,6 +44,11 @@ export const ProductDetails = () => {
 		<div className="shop-wrapper">
 			{isLoading && <p>Loading products</p>}
 			{error && <p>Error: {error}</p>}
+			{ cartBanner && (
+				<div className="banner">
+					<h4>Item added to cart!</h4>
+				</div>
+			)}
 			<div className="product-wrapper">
 				<div className="link-div">
 					<Link to={"/products"}><MdChevronLeft />Back</Link>
@@ -53,7 +69,6 @@ export const ProductDetails = () => {
 					<div className="button-div">
 						<Button onClick={handleAddToCart} className="cart-btn" disabled={!inStock}>
                             {inStock ?  "Add to Cart" : "Out of Stock"}</Button>
-                        {/* <div className="amount-div"><span className="fa-icon"><FaMinus /></span><span>1</span><span className="fa-icon"><FaPlus /></span></div>     */}
 					</div>
 
 				</div>

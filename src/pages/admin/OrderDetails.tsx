@@ -5,6 +5,7 @@ import { MdEdit, MdExpandLess, MdExpandMore } from "../../icons";
 import { Button } from "../../components/Button";
 import { updateOrderItem, deleteOrderItem } from "../../services/orderItemService";
 import { fetchOrder } from "../../services/orderService";
+import { useOrders } from "../hooks/useOrders";
 
 
 export const OrderDetails = () => {
@@ -12,6 +13,7 @@ export const OrderDetails = () => {
 	const navigate = useNavigate();
 
 	const { order, isLoading, error, setOrder } = useOrder(Number(id));
+	const { deleteOrderHandler } = useOrders();
     
 	const [showOrderByID, setShowOrderByID] = useState<number | null>(null);
 	const [showOrderItemsByID, setShowOrderItemsByID] = useState<number | null>(null);
@@ -38,12 +40,12 @@ export const OrderDetails = () => {
             }
         }
     
-        const handleDelete = async (itemId: number) => {
-            await deleteOrderItem(itemId);
+    const handleDelete = async (itemId: number) => {
+        await deleteOrderItem(itemId);
     
-            const updatedOrder = await fetchOrder(Number(id));
-            setOrder(updatedOrder);
-        }
+        const updatedOrder = await fetchOrder(Number(id));
+        setOrder(updatedOrder);
+    }
 
 	const showOrderDetails = (orderId: number) => {
 		setShowOrderByID((prevId) => (prevId === orderId ? null : orderId));
@@ -155,6 +157,14 @@ export const OrderDetails = () => {
 				</div>
                 <div className="button-div">
                 <Button className="edit-btn"><Link to={`/admin/update-order/${order?.id}`}>Edit Order</Link></Button>
+                <Button
+					className="delete-btn"
+					onClick={() =>
+						order?.id && deleteOrderHandler(order?.id)
+					}
+					>
+						<Link to={"/admin/manage-orders"}>Delete</Link>
+				</Button>
                 </div>
 				<Link to={"/admin/manage-orders"}>Back to Orders</Link>
 			</div>
