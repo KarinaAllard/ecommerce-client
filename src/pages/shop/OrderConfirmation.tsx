@@ -52,6 +52,14 @@ export const OrderConfirmation = () => {
                                 </div>
                             ))}
                         </div>
+
+                        <h2>Delivery Address</h2>
+                        <div>
+                            <p>{order?.customer_firstname} {order?.customer_lastname}</p>
+                            <p>{order?.customer_street_address}</p>
+                            <p>{order?.customer_city}, {order?.customer_postal_code}</p>
+                            <p>{order?.customer_country}</p>
+                        </div>
                     </div>
                 )}
                 </>
