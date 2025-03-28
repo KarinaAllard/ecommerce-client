@@ -65,6 +65,7 @@ export const ProductDetails = () => {
 							<h2>{product?.name}</h2>
 							{!inStock && <h4>Out of Stock</h4>}
 							<p>{product?.description}</p>
+							<h4>{product?.price} kr</h4>
 							<p>Clothing type: {product?.category}</p>
 						</div>
 					</div>
