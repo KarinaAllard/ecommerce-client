@@ -185,12 +185,14 @@ export const Checkout = () => {
 
 			{existingCustomer && clientSecret && (
 				<div className="payment-container">
-					<EmbeddedCheckoutProvider
-						stripe={stripePromise}
-						options={{ clientSecret }}
-						>
-						<EmbeddedCheckout />
-					</EmbeddedCheckoutProvider>
+					<div className="embedded-div">
+						<EmbeddedCheckoutProvider
+							stripe={stripePromise}
+							options={{ clientSecret }}
+							>
+							<EmbeddedCheckout />
+						</EmbeddedCheckoutProvider>
+					</div>
 					<div className="button-div">
 						<Link to={"/cart"}>Back to Cart</Link>
 					</div>

@@ -3,6 +3,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    .checkout-div {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .payment-container {
+            margin: 1rem;
+
+            .button-div {
+                margin-top: 1rem;
+            }
+        }
+
+    }
     
     .form-div {
         display: flex;
@@ -11,6 +27,8 @@
         align-items: center;
         gap: 0.6rem;
         padding: 1rem;
+        background-color: var(--light-blue);
+        margin-bottom: 1rem;
 
         input {
             font-size: 1.3rem;
