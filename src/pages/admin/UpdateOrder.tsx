@@ -49,6 +49,7 @@ export const UpdateOrder = () => {
 					>
 						<option value="pending">Pending</option>
 						<option value="processing">Processing</option>
+						<option value="received">Received</option>
 						<option value="completed">Completed</option>
 					</select>
 
