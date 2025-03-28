@@ -91,7 +91,7 @@ export const Checkout = () => {
 		<div className="checkout-wrapper">
 			<h1>Checkout</h1>
 			<div className="checkout-div">
-				{error && <p>Error: {error}</p>}
+				{error && <p className="error-banner">{error}</p>}
 				{!existingCustomer && (
 
 				<form onSubmit={handleSubmit}>
@@ -121,16 +121,6 @@ export const Checkout = () => {
 						value={formData.email}
 						onChange={handleChange}
 						placeholder="Email"
-						required
-					/>
-                    <label htmlFor="password">Password:</label>
-					<input
-						type="password"
-						name="password"
-						value={formData.password}
-						onChange={handleChange}
-						placeholder="Password"
-						className="input-pw"
 						required
 					/>
                     <label htmlFor="phone">Phone:</label>
@@ -184,18 +174,20 @@ export const Checkout = () => {
 				)}
 
 			{existingCustomer && clientSecret && (
-				<div className="payment-container">
-					<div className="embedded-div">
-						<EmbeddedCheckoutProvider
-							stripe={stripePromise}
-							options={{ clientSecret }}
-							>
-							<EmbeddedCheckout />
-						</EmbeddedCheckoutProvider>
+				<div className="embedded-checkout">
+					<div className="payment-container">
+						<div className="embedded-div">
+							<EmbeddedCheckoutProvider
+								stripe={stripePromise}
+								options={{ clientSecret }}
+								>
+								<EmbeddedCheckout />
+							</EmbeddedCheckoutProvider>
+						</div>
 					</div>
-					<div className="button-div">
-						<Link to={"/cart"}>Back to Cart</Link>
-					</div>
+						<div className="button-div">
+							<Link to={"/cart"}>Back to Cart</Link>
+						</div>
 				</div>
                 
             )}
